@@ -33,6 +33,7 @@ const Form = ({ isPremium }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
     const bookingData = {
       tripType,
       trainType,
@@ -87,7 +88,7 @@ const Form = ({ isPremium }) => {
           <select value={trainType} onChange={(e) => setTrainType(e.target.value)} required>
             <option value="" disabled>Select...</option>
             <option value="express">Express</option>
-            <option value="inter-country">Inter-Country</option>
+            <option value="inter-county">Inter-County</option>
           </select>
         </div>
         

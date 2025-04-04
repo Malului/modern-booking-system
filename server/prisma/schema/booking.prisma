@@ -1,0 +1,11 @@
+model Booking {
+    id              String  @id @default(cuid())
+
+    bookingDate     DateTime
+
+
+    tripId          String
+    trip            Trip @relation(fields: [tripId], references: [id])
+
+    @@index([tripId])
+}

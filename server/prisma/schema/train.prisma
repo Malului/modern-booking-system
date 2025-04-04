@@ -1,0 +1,11 @@
+model Train {
+    id          Int  @id @default(autoincrement())
+    trainType   TrainType
+    capacity    Int
+    schedules   ScheduleTemplate[]
+}
+
+enum TrainType {
+    EXPRESS
+    INTER_COUNTY
+}

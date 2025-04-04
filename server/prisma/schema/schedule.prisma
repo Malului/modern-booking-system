@@ -1,0 +1,23 @@
+model ScheduleTemplate {
+    id                  Int @id @default(autoincrement())
+    departureTime       DepartureTime
+
+    trips               Trip[]
+
+    departureStationId  Int
+    departureStation    Station  @relation("departureStation", fields: [departureStationId], references: [id])
+    arrivalStationId    Int
+    arrivalStation     Station  @relation("arrivalStation", fields: [arrivalStationId], references: [id])
+    trainId             Int
+    train               Train @relation(fields: [trainId], references: [id])
+
+    @@index([departureStationId])
+    @@index([arrivalStationId])
+    @@index([trainId])
+}
+
+enum DepartureTime {
+    MORNING
+    AFTERNOON
+    EVENING
+}

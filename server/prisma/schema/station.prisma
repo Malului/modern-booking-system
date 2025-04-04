@@ -1,0 +1,7 @@
+model Station {
+    id                  Int @id @default(autoincrement())
+    name                String  @unique
+    code                String  @unique
+    departureSchedules  ScheduleTemplate[] @relation("departureStation")
+    arrivalSchedules    ScheduleTemplate[] @relation("arrivalStation")
+}

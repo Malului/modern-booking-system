@@ -1,0 +1,17 @@
+model Trip {
+    id                   String  @id @default(cuid())
+    departureDate        DateTime @db.Date
+    tripType            TripType  
+
+    scheduleId          Int
+    schedule            ScheduleTemplate @relation(fields: [scheduleId], references: [id])
+
+    bookings            Booking[]
+
+    @@index([scheduleId])
+}
+
+enum TripType {
+    ONE_WAY
+    RETURN
+}
