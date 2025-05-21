@@ -3,7 +3,7 @@ import React from 'react'
 const Navbar = () => {
     const navLinks = [
         {title: 'Book a Train', url: '/'},
-        {title: 'Manage Premium Booking', url: '/premium'},
+        {title: 'Manage Premium Booking', url: '/'},
         {title: 'Stations', url: '/stations'},
         {title: 'About Us', url: '/about-us'}
     ]

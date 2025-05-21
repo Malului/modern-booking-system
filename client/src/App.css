@@ -1,5 +1,6 @@
 @import url('./css/Navbar.css');
 @import url('./css/Hero.css');
+@import url('./css/SearchDetails.css');
 
 body {
     font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;

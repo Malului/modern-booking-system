@@ -96,46 +96,44 @@ const searchTripAvailability = async (req, res) => {
         }
 
         // //find trip based on schedule
-        // const trip = await prisma.trip.findUnique({
-        //     where: {
-        //         scheduleId: {
-        //             in: schedulesTemplates.map(template => template.id)
-        //         },
-        //         departureDate: new Date(parsedDate),
-        //         tripType: tripType.toUpperCase() === "ONE-WAY" ? "ONE_WAY" : "RETURN"
-        //     },
-        //     include: {
-        //         schedule: {
-        //             include: {
-        //                 departureStation: true,
-        //                 arrivalStation: true,
+        const trip = await prisma.trip.findFirst({
+            where: {
+                scheduleId: schedulesTemplates.id,
+                departureDate: new Date(parsedDate),
+                tripType: tripType.toUpperCase() === "ONE-WAY" ? "ONE_WAY" : "RETURN"
+            },
+            include: {
+                schedule: {
+                    include: {
+                        departureStation: true,
+                        arrivalStation: true,
 
-        //                 train: true
-        //             }
-        //         },
-        //         bookings: {
-        //             select: {
-        //                 id: true
-        //             }
-        //         }
-        //     }
-        // })
+                        train: true
+                    }
+                },
+                bookings: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        })
 
-        // if (!trip) {
-        //     return res.status(404).json({
-        //         success: false,
-        //         error: "Trip not found"
-        //     })
-        // }
+        if (!trip) {
+            return res.status(404).json({
+                success: false,
+                error: "Trip not found"
+            })
+        }
 
         return res.status(201).json({
             success: true,
-            data: schedulesTemplates
-            //data: trip
+            data: trip
         })
     } catch (error) {
         return res.status(500).json({
-            error: "Could not fetch data"
+            error: "Could not fetch data",
+            message: error.message
         })
     }
 }

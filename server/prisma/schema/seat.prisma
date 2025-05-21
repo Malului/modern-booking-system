@@ -1,0 +1,11 @@
+model Seat {
+    id              Int         @id @default(autoincrement())
+    coachType       CoachType
+    seatNo          String      @unique
+
+    trips            SeatsOnTrips[]
+
+    bookings         SeatsOnBookings[]     
+         
+    passengers       Passenger[]
+}

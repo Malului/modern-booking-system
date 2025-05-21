@@ -1,11 +1,29 @@
 model Booking {
     id              String  @id @default(cuid())
 
-    bookingDate     DateTime
-
+    coachType       CoachType
+    bookingStatus   BookingStatus   @default(PENDING)
+    totalAmount     Int
+    paymentPhone    String
+    paymentMethod   String      @default("M-PESA")
 
     tripId          String
     trip            Trip @relation(fields: [tripId], references: [id])
 
+    seats           SeatsOnBookings[]
+    passengers      Passenger[]
+
     @@index([tripId])
+}
+
+enum CoachType {
+    PREMIUM
+    ECONOMY
+    FIRST_CLASS
+}
+
+enum BookingStatus {
+    PENDING
+    CANCELLED
+    COMPLETED
 }

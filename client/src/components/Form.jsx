@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import { searchAvailability } from '../services/api';
 
 const Form = ({ isPremium }) => {
   const [tripType, setTripType] = useState('one-way');
@@ -9,6 +12,10 @@ const Form = ({ isPremium }) => {
   const [departureTime, setDepartureTime] = useState('');
   const [returnDate, setReturnDate] = useState('');
   const [returnTime, setReturnTime] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   const getStationOptions = () => {
     if (trainType === 'express') {
@@ -31,7 +38,7 @@ const Form = ({ isPremium }) => {
 
   const stations = getStationOptions();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     const bookingData = {
@@ -45,7 +52,25 @@ const Form = ({ isPremium }) => {
       returnTime: tripType === 'return' ? returnTime : null,
     };
     console.log('Booking Details:', bookingData);
-    // Snd this data to an API endpoint here
+    // Send this data to an API endpoint here
+
+    try {
+      setIsLoading(true)
+
+      const response = await searchAvailability.getAvailability(bookingData)
+      console.log("Api response: ", response.data)
+
+      alert("Trip data fetched successfully")
+      navigate('/search-details', {
+        state: response.data
+      })
+    } catch (error) {
+      console.error("Error fetching API:", error.response?.data || error.message)
+
+      alert("Error fetching trip API")
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   return (

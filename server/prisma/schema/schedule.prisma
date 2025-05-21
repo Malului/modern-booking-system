@@ -1,6 +1,7 @@
 model ScheduleTemplate {
     id                  Int @id @default(autoincrement())
     departureTime       DepartureTime
+    name                String  @unique
 
     trips               Trip[]
 
